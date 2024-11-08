@@ -20,12 +20,19 @@ export class DocumentController {
     @UploadedFiles() file: Express.Multer.File,
     @Body() document: DocumentDTO,
   ) {
-    if (!file) {
-      throw new BadRequestException('You must upload image.');
+    try {
+      if (!file) {
+        throw new BadRequestException('You must upload image.');
+      }
+
+      const image = file[0];
+
+      return await this.documentService.validateDocument({
+        image,
+        ...document,
+      });
+    } catch (error) {
+      throw new BadRequestException(error.message);
     }
-
-    const image = file[0];
-
-    return this.documentService.validateDocument({ image, ...document });
   }
 }
