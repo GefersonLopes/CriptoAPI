@@ -37,16 +37,34 @@ export class TelegramService {
     console.log(`Copie essa sessão, meu xapa: ${this.client.session.save()}`);
   }
 
-  async getGroupMembers(groupId: string) {
+  async getGroupMembers(
+    groupId: string,
+    pageSize: number = 10,
+  ): Promise<any[]> {
     try {
       if (!this.client.connected) {
         await this.start();
       }
 
       const chat = await this.client.getEntity(groupId);
-      const participants = await this.client.getParticipants(chat);
+      const members = [];
+      let offset = 0;
 
-      return participants;
+      while (true) {
+        const chunk = await this.client.getParticipants(chat, {
+          limit: pageSize,
+          offset,
+        });
+
+        members.push(...chunk);
+        offset += chunk.length;
+
+        if (chunk.length < pageSize) {
+          break;
+        }
+      }
+
+      return members;
     } catch (error) {
       console.error('Erro ao obter membros do grupo:', error);
       throw error;
