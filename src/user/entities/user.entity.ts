@@ -34,4 +34,7 @@ export class User {
 
   @Column('bytea', { nullable: true })
   blob_document: Buffer;
+
+  @Column({ nullable: true, default: 'common' })
+  user_type: string;
 }
