@@ -6,6 +6,10 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { ScheduleModule } from '@nestjs/schedule';
+import { JobsModule } from './jobs/jobs.module';
+import { TelegramService } from './telegram/telegram.service';
+import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
   imports: [
@@ -23,10 +27,13 @@ import { User } from './user/entities/user.entity';
       entities: [User],
       synchronize: process.env.NODE_ENV !== 'production' ? true : false,
     }),
+    ScheduleModule.forRoot(),
     DocumentModule,
     UserModule,
+    JobsModule,
+    TelegramModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TelegramService],
 })
 export class AppModule {}
