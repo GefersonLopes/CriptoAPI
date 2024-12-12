@@ -10,6 +10,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { JobsModule } from './jobs/jobs.module';
 import { TelegramService } from './telegram/telegram.service';
 import { TelegramModule } from './telegram/telegram.module';
+import { Web3Module } from './web3/web3.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { TelegramModule } from './telegram/telegram.module';
     UserModule,
     JobsModule,
     TelegramModule,
+    Web3Module,
   ],
   controllers: [AppController],
   providers: [AppService, TelegramService],
