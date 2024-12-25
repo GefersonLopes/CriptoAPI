@@ -11,6 +11,8 @@ import { JobsModule } from './jobs/jobs.module';
 import { TelegramService } from './telegram/telegram.service';
 import { TelegramModule } from './telegram/telegram.module';
 import { Web3Module } from './web3/web3.module';
+import { Transaction } from './web3/entities/web3';
+import { Project } from './project/entities/project.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { Web3Module } from './web3/web3.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [User],
+      entities: [User, Transaction, Project],
       synchronize: process.env.NODE_ENV !== 'production' ? true : false,
     }),
     ScheduleModule.forRoot(),

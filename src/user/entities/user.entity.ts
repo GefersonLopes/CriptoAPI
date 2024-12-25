@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Transaction } from 'src/web3/entities/web3';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
 export class User {
@@ -37,4 +38,7 @@ export class User {
 
   @Column({ nullable: true, default: 'common' })
   user_type: string;
+
+  @OneToMany(() => Transaction, (project) => project.userAccount)
+  transactions: Transaction[];
 }
