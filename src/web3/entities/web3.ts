@@ -64,13 +64,13 @@ export class Transaction {
   @Column({ nullable: false, default: 2 })
   type: number;
 
-  @Column({ type: 'numeric', precision: 10, scale: 2, nullable: false })
+  @Column({ type: 'numeric', precision: 20, scale: 2, nullable: false })
   qtt: number;
 
-  @Column({ type: 'numeric', precision: 20, scale: 10, nullable: false })
+  @Column({ type: 'bigint', nullable: false })
   valueUSD: number;
 
-  @Column({ type: 'numeric', precision: 20, scale: 10, nullable: false })
+  @Column({ type: 'bigint', nullable: false })
   totalValue: number;
 
   @Column({ type: 'varchar', nullable: false })
